@@ -1,7 +1,6 @@
-import { greetUser } from '$utils/greet';
+import { cityDetector_func } from '$utils/city-detector';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  const name = 'John Doe';
-  greetUser(name);
+  cityDetector_func();
 });
