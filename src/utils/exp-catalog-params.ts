@@ -49,8 +49,21 @@ export const expParams_func = () => {
             allIconPresets.forEach((icon) => {
               const iconAttribute = icon.getAttribute('icon-age');
               if (smallArray[1] === iconAttribute) {
-                const needToCloneIcon = icon.cloneNode(true);
-                currentElement?.appendChild(needToCloneIcon);
+                // Элемент, который мы хотим скопировать
+                const elementToCopy = icon;
+
+                // Новый родительский элемент
+                const newParent = currentElement;
+
+                // Создаем новый элемент и копируем HTML содержимое
+                const newElement = document.createElement('div');
+                newElement.innerHTML = elementToCopy.innerHTML;
+
+                // Вставляем новый элемент в нового родителя
+                newParent.appendChild(newElement);
+
+                // const needToCloneIcon = icon.cloneNode(true);
+                // currentElement?.appendChild(needToCloneIcon);
               }
             });
           }

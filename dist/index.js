@@ -203,8 +203,11 @@
               allIconPresets.forEach((icon) => {
                 const iconAttribute = icon.getAttribute("icon-age");
                 if (smallArray[1] === iconAttribute) {
-                  const needToCloneIcon = icon.cloneNode(true);
-                  currentElement?.appendChild(needToCloneIcon);
+                  const elementToCopy = icon;
+                  const newParent = currentElement;
+                  const newElement = document.createElement("div");
+                  newElement.innerHTML = elementToCopy.innerHTML;
+                  newParent.appendChild(newElement);
                 }
               });
             }
