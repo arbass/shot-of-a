@@ -13,12 +13,6 @@ export const expParams_func = () => {
         const currentAttributeValue = expCollectionItem.getAttribute('value-best');
         const array_params = currentAttributeValue.split(';');
 
-        array_params.forEach((param, id) => {
-          if (param === '') {
-            array_params.splice(id, 1);
-          }
-        });
-
         array_params.forEach((el) => {
           if (el === page_city) {
             currentElement.classList.remove('hide');
@@ -35,6 +29,7 @@ export const expParams_func = () => {
         const currentAttributeValue = expCollectionItem.getAttribute('value-age');
         const array_params = currentAttributeValue.split(';');
 
+<<<<<<< HEAD
         array_params.forEach((param, id) => {
           if (param === '') {
             array_params.splice(id, 1);
@@ -43,9 +38,10 @@ export const expParams_func = () => {
 
         const fragment = document.createDocumentFragment(); // Использование фрагмента для добавления иконок
 
+=======
+>>>>>>> parent of bf50110 (before: gpt update)
         array_params.forEach((param) => {
           const smallArray = param.split('@');
-
           if (smallArray[0] === page_city) {
             allIconPresets.forEach((icon) => {
               const iconAttribute = icon.getAttribute('icon-age');
@@ -73,12 +69,6 @@ export const expParams_func = () => {
         const currentAttributeValue = expCollectionItem.getAttribute('value-price');
         const array_params = currentAttributeValue.split(';');
 
-        array_params.forEach((param, id) => {
-          if (param === '') {
-            array_params.splice(id, 1);
-          }
-        });
-
         array_params.forEach((param) => {
           const smallArray = param.split('@');
           if (smallArray[0] === page_city) {
@@ -102,12 +92,6 @@ export const expParams_func = () => {
         );
         const currentAttributeValue = expCollectionItem.getAttribute('value-count');
         const array_params = currentAttributeValue.split(';');
-
-        array_params.forEach((param, id) => {
-          if (param === '') {
-            array_params.splice(id, 1);
-          }
-        });
 
         array_params.forEach((param) => {
           const smallArray = param.split('@');
