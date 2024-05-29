@@ -2,12 +2,10 @@ export const expParams_func = () => {
   const expParams_el = document.querySelector('[catalog-page-city]');
 
   if (expParams_el) {
-    //переменные
     const page_city = expParams_el.getAttribute('catalog-page-city');
     const array_expCollectionItems = document.querySelectorAll('[exp-collection-item]');
 
-    array_expCollectionItems.forEach((expCollectionItem) => {
-      //функция для бестселлера
+    array_expCollectionItems.forEach((expCollectionItem, index) => {
       function display_bestSeller() {
         const currentElement = expCollectionItem.querySelector(
           '[exp-columns_slider-header-meta-item=best]'
@@ -27,8 +25,9 @@ export const expParams_func = () => {
           }
         });
       }
-      //функция для иконки возраста
+
       function display_age() {
+        console.log(`Processing age for item ${index}`);
         const allIconPresets = document.querySelectorAll('[icon-age]');
         const currentElement = expCollectionItem.querySelector(
           '[exp-columns_slider-header-meta-item=age]'
@@ -42,6 +41,8 @@ export const expParams_func = () => {
           }
         });
 
+        const fragment = document.createDocumentFragment(); // Использование фрагмента для добавления иконок
+
         array_params.forEach((param) => {
           const smallArray = param.split('@');
 
@@ -50,13 +51,21 @@ export const expParams_func = () => {
               const iconAttribute = icon.getAttribute('icon-age');
               if (smallArray[1] === iconAttribute) {
                 const needToCloneIcon = icon.cloneNode(true);
-                currentElement?.appendChild(needToCloneIcon);
+                fragment.appendChild(needToCloneIcon);
+                console.log(`Added icon for ${index}: `, iconAttribute);
               }
             });
           }
         });
+
+        // Очистка всех дочерних элементов перед добавлением новых иконок
+        while (currentElement.firstChild) {
+          currentElement.removeChild(currentElement.firstChild);
+        }
+
+        currentElement.appendChild(fragment); // Добавление фрагмента в элемент
       }
-      //функция для цены
+
       function display_price() {
         const currentElement = expCollectionItem.querySelector(
           '[exp-columns_slider-header-meta-item=price]'
@@ -86,7 +95,7 @@ export const expParams_func = () => {
           }
         });
       }
-      //функция для людей
+
       function display_people() {
         const currentElement = expCollectionItem.querySelector(
           '[exp-columns_slider-header-meta-item=count]'
@@ -117,7 +126,6 @@ export const expParams_func = () => {
         });
       }
 
-      //энтри-пойнты
       display_bestSeller();
       display_age();
       display_price();

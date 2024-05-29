@@ -167,7 +167,7 @@
     if (expParams_el) {
       const page_city = expParams_el.getAttribute("catalog-page-city");
       const array_expCollectionItems = document.querySelectorAll("[exp-collection-item]");
-      array_expCollectionItems.forEach((expCollectionItem) => {
+      array_expCollectionItems.forEach((expCollectionItem, index) => {
         function display_bestSeller() {
           const currentElement = expCollectionItem.querySelector(
             "[exp-columns_slider-header-meta-item=best]"
@@ -186,6 +186,7 @@
           });
         }
         function display_age() {
+          console.log(`Processing age for item ${index}`);
           const allIconPresets = document.querySelectorAll("[icon-age]");
           const currentElement = expCollectionItem.querySelector(
             "[exp-columns_slider-header-meta-item=age]"
@@ -197,6 +198,7 @@
               array_params.splice(id, 1);
             }
           });
+          const fragment = document.createDocumentFragment();
           array_params.forEach((param) => {
             const smallArray = param.split("@");
             if (smallArray[0] === page_city) {
@@ -204,11 +206,16 @@
                 const iconAttribute = icon.getAttribute("icon-age");
                 if (smallArray[1] === iconAttribute) {
                   const needToCloneIcon = icon.cloneNode(true);
-                  currentElement?.appendChild(needToCloneIcon);
+                  fragment.appendChild(needToCloneIcon);
+                  console.log(`Added icon for ${index}: `, iconAttribute);
                 }
               });
             }
           });
+          while (currentElement.firstChild) {
+            currentElement.removeChild(currentElement.firstChild);
+          }
+          currentElement.appendChild(fragment);
         }
         function display_price() {
           const currentElement = expCollectionItem.querySelector(
