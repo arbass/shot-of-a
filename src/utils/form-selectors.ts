@@ -13,8 +13,22 @@ export const formSelectors_func = () => {
 
           if (label && placeholder) {
             placeholder.textContent = label.textContent;
+            placeholder.classList.add('label-is-active');
             console.log(`Radio selected: ${label.textContent}`);
           }
+
+          // Добавляем класс на выбранный label
+          if (label) {
+            label.classList.add('label-is-active');
+          }
+
+          // Убираем класс с невыбранных labels
+          const allLabels = component.querySelectorAll('[form-custom-dropdwn="radio-label"]');
+          allLabels.forEach((lbl) => {
+            if (lbl !== label) {
+              lbl.classList.remove('label-is-active');
+            }
+          });
         }
       });
     });
