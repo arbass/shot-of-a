@@ -30,6 +30,7 @@ export const expParams_func = () => {
         const array_params = currentAttributeValue.split(';');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         array_params.forEach((param, id) => {
           if (param === '') {
             array_params.splice(id, 1);
@@ -38,6 +39,8 @@ export const expParams_func = () => {
 
         const fragment = document.createDocumentFragment(); // Использование фрагмента для добавления иконок
 
+=======
+>>>>>>> parent of bf50110 (before: gpt update)
 =======
 >>>>>>> parent of bf50110 (before: gpt update)
         array_params.forEach((param) => {
