@@ -44,11 +44,35 @@ export const expParams_func = () => {
         });
       }
       //функция для цены
+      function display_price() {
+        const currentElement = expCollectionItem.querySelector(
+          '[exp-columns_slider-header-meta-item=price]'
+        );
+        const currentAttributeValue = expCollectionItem.getAttribute('value-price');
+        const array_params = currentAttributeValue.split(';');
+
+        array_params.forEach((param) => {
+          const smallArray = param.split('@');
+          if (smallArray[0] === page_city) {
+            const city = smallArray[0];
+            const paramValue = smallArray[1];
+
+            if (city === page_city) {
+              currentElement.classList.remove('hide');
+              const currentPriceTextValue = currentElement.querySelector(
+                '[exp-columns_slider-header-meta-item="price-text-value"]'
+              );
+              currentPriceTextValue.textContent = paramValue;
+            }
+          }
+        });
+      }
       //функция для людей
 
       //энтри-пойнты
       display_bestSeller();
       display_age();
+      display_price();
     });
   }
 };
