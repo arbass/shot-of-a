@@ -68,11 +68,35 @@ export const expParams_func = () => {
         });
       }
       //функция для людей
+      function display_people() {
+        const currentElement = expCollectionItem.querySelector(
+          '[exp-columns_slider-header-meta-item=count]'
+        );
+        const currentAttributeValue = expCollectionItem.getAttribute('value-count');
+        const array_params = currentAttributeValue.split(';');
+
+        array_params.forEach((param) => {
+          const smallArray = param.split('@');
+          if (smallArray[0] === page_city) {
+            const city = smallArray[0];
+            const paramValue = smallArray[1];
+
+            if (city === page_city) {
+              currentElement.classList.remove('hide');
+              const currentPriceTextValue = currentElement.querySelector(
+                '[exp-columns_slider-header-meta-item="count-text-value"]'
+              );
+              currentPriceTextValue.textContent = paramValue;
+            }
+          }
+        });
+      }
 
       //энтри-пойнты
       display_bestSeller();
       display_age();
       display_price();
+      display_people();
     });
   }
 };
