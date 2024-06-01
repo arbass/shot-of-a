@@ -1,6 +1,7 @@
 import { cityDetector_func } from '$utils/city-detector';
 import { expParams_func } from '$utils/exp-catalog-params';
 import { expSliderLinkCreator_func } from '$utils/exp-slider-link-creator';
+import { expVideoOnHover_func } from '$utils/exp-video-on-hover';
 import { formSelectors_func } from '$utils/form-selectors';
 import { coloredSlider_func } from '$utils/sliders-colors';
 
@@ -11,4 +12,5 @@ window.Webflow.push(() => {
   expParams_func();
   coloredSlider_func();
   expSliderLinkCreator_func();
+  expVideoOnHover_func();
 });
