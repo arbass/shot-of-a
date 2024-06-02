@@ -304,53 +304,59 @@
     const expVideoOnHover_el = document.querySelectorAll("[video-on-hover]");
     if (expVideoOnHover_el.length) {
       expVideoOnHover_el.forEach((hover_el) => {
-        hover_el.addEventListener("mouseover", function() {
-          const currentSrcWaiter = hover_el.querySelector("[put-src-here]");
-          if (currentSrcWaiter) {
-            const src = currentSrcWaiter.getAttribute("put-src-here");
-            if (src) {
-              currentSrcWaiter.setAttribute("src", src);
+        const handleMouseOver = function() {
+          if (window.innerWidth >= 992) {
+            const currentSrcWaiter = hover_el.querySelector("[put-src-here]");
+            if (currentSrcWaiter) {
+              const src = currentSrcWaiter.getAttribute("put-src-here");
+              if (src) {
+                currentSrcWaiter.setAttribute("src", src);
+              } else {
+              }
             } else {
             }
-          } else {
-          }
-          const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
-          if (currentEmbed) {
-            currentEmbed.classList.remove("hide");
-          } else {
-          }
-          let currentVideo = hover_el.querySelector("video");
-          if (currentVideo) {
-            const newVideoElement = currentVideo.cloneNode(true);
-            currentVideo.parentNode.replaceChild(newVideoElement, currentVideo);
-            currentVideo = newVideoElement;
-            currentVideo.addEventListener("canplay", () => {
-              currentVideo.play().catch((error) => {
+            const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
+            if (currentEmbed) {
+              currentEmbed.classList.remove("hide");
+            } else {
+            }
+            let currentVideo = hover_el.querySelector("video");
+            if (currentVideo) {
+              const newVideoElement = currentVideo.cloneNode(true);
+              currentVideo.parentNode.replaceChild(newVideoElement, currentVideo);
+              currentVideo = newVideoElement;
+              currentVideo.addEventListener("canplay", () => {
+                currentVideo.play().catch((error) => {
+                });
               });
-            });
-            currentVideo.addEventListener("play", () => {
-            });
-            currentVideo.addEventListener("pause", () => {
-            });
-            currentVideo.addEventListener("timeupdate", function() {
-            });
-            currentVideo.addEventListener("canplaythrough", () => {
-            });
-          } else {
+              currentVideo.addEventListener("play", () => {
+              });
+              currentVideo.addEventListener("pause", () => {
+              });
+              currentVideo.addEventListener("timeupdate", function() {
+              });
+              currentVideo.addEventListener("canplaythrough", () => {
+              });
+            } else {
+            }
           }
-        });
-        hover_el.addEventListener("mouseout", function() {
-          const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
-          if (currentEmbed) {
-            currentEmbed.classList.add("hide");
-          } else {
+        };
+        const handleMouseOut = function() {
+          if (window.innerWidth >= 992) {
+            const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
+            if (currentEmbed) {
+              currentEmbed.classList.add("hide");
+            } else {
+            }
+            const currentVideo = hover_el.querySelector("video");
+            if (currentVideo) {
+              currentVideo.pause();
+            } else {
+            }
           }
-          const currentVideo = hover_el.querySelector("video");
-          if (currentVideo) {
-            currentVideo.pause();
-          } else {
-          }
-        });
+        };
+        hover_el.addEventListener("mouseover", handleMouseOver);
+        hover_el.addEventListener("mouseout", handleMouseOut);
       });
     } else {
     }

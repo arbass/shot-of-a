@@ -3,81 +3,86 @@ export const expVideoOnHover_func = () => {
 
   if (expVideoOnHover_el.length) {
     expVideoOnHover_el.forEach((hover_el) => {
-      hover_el.addEventListener('mouseover', function () {
-        const currentSrcWaiter = hover_el.querySelector('[put-src-here]');
-        if (currentSrcWaiter) {
-          const src = currentSrcWaiter.getAttribute('put-src-here');
-          if (src) {
-            currentSrcWaiter.setAttribute('src', src);
-            // console.log(`Установлен src: ${src}`);
+      const handleMouseOver = function () {
+        if (window.innerWidth >= 992) {
+          const currentSrcWaiter = hover_el.querySelector('[put-src-here]');
+          if (currentSrcWaiter) {
+            const src = currentSrcWaiter.getAttribute('put-src-here');
+            if (src) {
+              currentSrcWaiter.setAttribute('src', src);
+              // console.log(`Установлен src: ${src}`);
+            } else {
+              // console.log('Нет атрибута put-src-here у элемента', currentSrcWaiter);
+            }
           } else {
-            // console.log('Нет атрибута put-src-here у элемента', currentSrcWaiter);
+            // console.log('Не найден элемент с атрибутом [put-src-here]');
           }
-        } else {
-          // console.log('Не найден элемент с атрибутом [put-src-here]');
-        }
 
-        const currentEmbed = hover_el.querySelector('[abs-video-for-hover-hided]');
-        if (currentEmbed) {
-          currentEmbed.classList.remove('hide');
-          // console.log('Класс hide снят с элемента', currentEmbed);
-        } else {
-          // console.log('Не найден элемент с атрибутом [abs-video-for-hover-hided]');
-        }
+          const currentEmbed = hover_el.querySelector('[abs-video-for-hover-hided]');
+          if (currentEmbed) {
+            currentEmbed.classList.remove('hide');
+            // console.log('Класс hide снят с элемента', currentEmbed);
+          } else {
+            // console.log('Не найден элемент с атрибутом [abs-video-for-hover-hided]');
+          }
 
-        let currentVideo = hover_el.querySelector('video');
-        if (currentVideo) {
-          // Реинициализация видео элемента
-          const newVideoElement = currentVideo.cloneNode(true);
-          currentVideo.parentNode.replaceChild(newVideoElement, currentVideo);
-          currentVideo = newVideoElement;
+          let currentVideo = hover_el.querySelector('video');
+          if (currentVideo) {
+            // Реинициализация видео элемента
+            const newVideoElement = currentVideo.cloneNode(true);
+            currentVideo.parentNode.replaceChild(newVideoElement, currentVideo);
+            currentVideo = newVideoElement;
 
-          currentVideo.addEventListener('canplay', () => {
-            // console.log('Видео готово к воспроизведению');
-            currentVideo.play().catch((error) => {
-              // console.log('Ошибка при воспроизведении видео:', error);
+            currentVideo.addEventListener('canplay', () => {
+              // console.log('Видео готово к воспроизведению');
+              currentVideo.play().catch((error) => {
+                // console.log('Ошибка при воспроизведении видео:', error);
+              });
             });
-          });
 
-          currentVideo.addEventListener('play', () => {
-            // console.log('Видео начато воспроизведение');
-          });
+            currentVideo.addEventListener('play', () => {
+              // console.log('Видео начато воспроизведение');
+            });
 
-          currentVideo.addEventListener('pause', () => {
-            // console.log('Видео на паузе');
-          });
+            currentVideo.addEventListener('pause', () => {
+              // console.log('Видео на паузе');
+            });
 
-          currentVideo.addEventListener('timeupdate', function () {
-            // console.log(`Current time: ${currentVideo.currentTime.toFixed(2)} seconds`);
-          });
+            currentVideo.addEventListener('timeupdate', function () {
+              // console.log(`Current time: ${currentVideo.currentTime.toFixed(2)} seconds`);
+            });
 
-          currentVideo.addEventListener('canplaythrough', () => {
-            // console.log('Видео полностью загружено и может воспроизводиться без прерываний');
-          });
-        } else {
-          // console.log('Не найден элемент video');
+            currentVideo.addEventListener('canplaythrough', () => {
+              // console.log('Видео полностью загружено и может воспроизводиться без прерываний');
+            });
+          } else {
+            // console.log('Не найден элемент video');
+          }
         }
+      };
 
-        // console.log(currentVideo);
-      });
+      const handleMouseOut = function () {
+        if (window.innerWidth >= 992) {
+          const currentEmbed = hover_el.querySelector('[abs-video-for-hover-hided]');
+          if (currentEmbed) {
+            currentEmbed.classList.add('hide');
+            // console.log('Класс hide добавлен к элементу', currentEmbed);
+          } else {
+            // console.log('Не найден элемент с атрибутом [abs-video-for-hover-hided]');
+          }
 
-      hover_el.addEventListener('mouseout', function () {
-        const currentEmbed = hover_el.querySelector('[abs-video-for-hover-hided]');
-        if (currentEmbed) {
-          currentEmbed.classList.add('hide');
-          // console.log('Класс hide добавлен к элементу', currentEmbed);
-        } else {
-          // console.log('Не найден элемент с атрибутом [abs-video-for-hover-hided]');
+          const currentVideo = hover_el.querySelector('video');
+          if (currentVideo) {
+            currentVideo.pause();
+            // console.log('Видео поставлено на паузу');
+          } else {
+            // console.log('Не найден элемент video');
+          }
         }
+      };
 
-        const currentVideo = hover_el.querySelector('video');
-        if (currentVideo) {
-          currentVideo.pause();
-          // console.log('Видео поставлено на паузу');
-        } else {
-          // console.log('Не найден элемент video');
-        }
-      });
+      hover_el.addEventListener('mouseover', handleMouseOver);
+      hover_el.addEventListener('mouseout', handleMouseOut);
     });
   } else {
     // console.log('Не найдено элементов с атрибутом [video-on-hover]');
