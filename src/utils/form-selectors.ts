@@ -6,23 +6,18 @@ export const formSelectors_func = () => {
       component.addEventListener('change', (event) => {
         if (event.target.type === 'radio') {
           const radio = event.target;
-          const label = component.querySelector(
-            `[form-custom-dropdwn="radio-label"][for="${radio.id}"]`
-          );
+          let label = radio.nextElementSibling;
+          if (label && label.getAttribute('form-custom-dropdwn') !== 'radio-label') {
+            label = null;
+          }
           const placeholder = component.querySelector('[form-custom-dropdwn="placeholder"]');
-
           if (label && placeholder) {
             placeholder.textContent = label.textContent;
             placeholder.classList.add('label-is-active');
-            console.log(`Radio selected: ${label.textContent}`);
           }
-
-          // Добавляем класс на выбранный label
           if (label) {
             label.classList.add('label-is-active');
           }
-
-          // Убираем класс с невыбранных labels
           const allLabels = component.querySelectorAll('[form-custom-dropdwn="radio-label"]');
           allLabels.forEach((lbl) => {
             if (lbl !== label) {
@@ -34,3 +29,5 @@ export const formSelectors_func = () => {
     });
   }
 };
+
+formSelectors_func();

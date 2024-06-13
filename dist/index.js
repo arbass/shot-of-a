@@ -428,14 +428,14 @@
         component.addEventListener("change", (event) => {
           if (event.target.type === "radio") {
             const radio = event.target;
-            const label = component.querySelector(
-              `[form-custom-dropdwn="radio-label"][for="${radio.id}"]`
-            );
+            let label = radio.nextElementSibling;
+            if (label && label.getAttribute("form-custom-dropdwn") !== "radio-label") {
+              label = null;
+            }
             const placeholder = component.querySelector('[form-custom-dropdwn="placeholder"]');
             if (label && placeholder) {
               placeholder.textContent = label.textContent;
               placeholder.classList.add("label-is-active");
-              console.log(`Radio selected: ${label.textContent}`);
             }
             if (label) {
               label.classList.add("label-is-active");
@@ -451,6 +451,7 @@
       });
     }
   };
+  formSelectors_func();
 
   // src/utils/menu-color.ts
   var menuColor_func = () => {
