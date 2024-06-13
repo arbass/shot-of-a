@@ -304,61 +304,61 @@
     const expVideoOnHover_el = document.querySelectorAll("[video-on-hover]");
     if (expVideoOnHover_el.length) {
       expVideoOnHover_el.forEach((hover_el) => {
-        const handleMouseOver = function() {
+        let isPlaying = false;
+        let videoLoaded = false;
+        const handlePointerEnter = function() {
           if (window.innerWidth >= 992) {
             const currentSrcWaiter = hover_el.querySelector("[put-src-here]");
             if (currentSrcWaiter) {
               const src = currentSrcWaiter.getAttribute("put-src-here");
-              if (src) {
+              if (src && currentSrcWaiter.getAttribute("src") !== src) {
                 currentSrcWaiter.setAttribute("src", src);
-              } else {
               }
-            } else {
             }
             const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
             if (currentEmbed) {
               currentEmbed.classList.remove("hide");
-            } else {
             }
-            let currentVideo = hover_el.querySelector("video");
+            const currentVideo = hover_el.querySelector("video");
             if (currentVideo) {
-              const newVideoElement = currentVideo.cloneNode(true);
-              currentVideo.parentNode.replaceChild(newVideoElement, currentVideo);
-              currentVideo = newVideoElement;
-              currentVideo.addEventListener("canplay", () => {
-                currentVideo.play().catch((error) => {
+              if (!videoLoaded) {
+                const handleCanPlayThrough = () => {
+                  videoLoaded = true;
+                  currentVideo.play().then(() => {
+                    isPlaying = true;
+                  }).catch((error) => {
+                    console.error("Error playing video:", error);
+                  });
+                  currentVideo.removeEventListener("canplaythrough", handleCanPlayThrough);
+                };
+                currentVideo.addEventListener("canplaythrough", handleCanPlayThrough);
+                currentVideo.load();
+              } else if (!isPlaying) {
+                currentVideo.play().then(() => {
+                  isPlaying = true;
+                }).catch((error) => {
+                  console.error("Error playing video:", error);
                 });
-              });
-              currentVideo.addEventListener("play", () => {
-              });
-              currentVideo.addEventListener("pause", () => {
-              });
-              currentVideo.addEventListener("timeupdate", function() {
-              });
-              currentVideo.addEventListener("canplaythrough", () => {
-              });
-            } else {
+              }
             }
           }
         };
-        const handleMouseOut = function() {
+        const handlePointerLeave = function() {
           if (window.innerWidth >= 992) {
             const currentEmbed = hover_el.querySelector("[abs-video-for-hover-hided]");
             if (currentEmbed) {
               currentEmbed.classList.add("hide");
-            } else {
             }
             const currentVideo = hover_el.querySelector("video");
-            if (currentVideo) {
+            if (currentVideo && isPlaying) {
               currentVideo.pause();
-            } else {
+              isPlaying = false;
             }
           }
         };
-        hover_el.addEventListener("mouseover", handleMouseOver);
-        hover_el.addEventListener("mouseout", handleMouseOut);
+        hover_el.addEventListener("pointerenter", handlePointerEnter);
+        hover_el.addEventListener("pointerleave", handlePointerLeave);
       });
-    } else {
     }
   };
 
