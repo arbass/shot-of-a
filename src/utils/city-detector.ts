@@ -1,5 +1,6 @@
 export const cityDetector_func = () => {
   const elements_cityDropdown = document.querySelectorAll('[location-dropdown]');
+  const elements_navHomeLinks = document.querySelectorAll('[nav-home-link]');
 
   if (elements_cityDropdown.length) {
     const defaultCity = 'New York';
@@ -117,6 +118,8 @@ export const cityDetector_func = () => {
       const currentCity = city.getAttribute('location-dropdown_button');
       const currentCityLink = city.getAttribute('href');
 
+      console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
+
       localStorage.setItem('savedCity', currentCity);
       el_cityPopup.classList.add('hide');
       window.location.href = currentCityLink;
@@ -142,14 +145,23 @@ export const cityDetector_func = () => {
           textNameOfCity.toUpperCase()
         ) {
           const currentCityButton = cityButton;
+          console.log(
+            `Found city button: ${currentCityButton.textContent}, link: ${currentCityButton.getAttribute('href')}`
+          );
+          element_detectedCity = currentCityButton;
           changeNamePlaceholder(currentCityButton);
           cityFound = true;
         }
       });
+      if (!cityFound) {
+        console.log('City not found, setting to default city');
+        setDefaultCity();
+      }
     }
 
     if (localStorage.getItem('savedCity')) {
       const savedCity = localStorage.getItem('savedCity');
+      console.log(`Loaded saved city: ${savedCity}`);
       findElementOfCurrentCity(savedCity);
       elements_cityDropdown.forEach((element) => {
         element.classList.remove('opacity-0');
@@ -165,6 +177,23 @@ export const cityDetector_func = () => {
         elements_cityDropdown.forEach((element) => {
           element.classList.remove('opacity-0');
         });
+      });
+    });
+
+    elements_navHomeLinks.forEach((navHomeLink) => {
+      navHomeLink.addEventListener('click', function () {
+        if (element_detectedCity) {
+          const cityLink = element_detectedCity.getAttribute('href');
+          console.log(`Navigating to city: ${element_detectedCity.textContent}, link: ${cityLink}`);
+          window.location.href = cityLink;
+        } else {
+          setDefaultCity();
+          const cityLink = element_detectedCity.getAttribute('href');
+          console.log(
+            `Navigating to default city: ${element_detectedCity.textContent}, link: ${cityLink}`
+          );
+          window.location.href = cityLink;
+        }
       });
     });
   }
