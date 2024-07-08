@@ -37,9 +37,10 @@
         const currentCityLink = city.getAttribute("href");
         console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
         localStorage.setItem("savedCity", currentCity);
+        updateCityPlaceholders2(city);
         el_cityPopup.classList.add("hide");
         window.location.href = currentCityLink;
-      }, changeNamePlaceholder2 = function(city) {
+      }, updateCityPlaceholders2 = function(city) {
         const cityName = city.getAttribute("location-dropdown_button");
         const allCityPlaceholders = document.querySelectorAll("[city-dropdown-name-placeholder]");
         allCityPlaceholders.forEach((placeholder) => {
@@ -58,7 +59,7 @@
               `Found city button: ${currentCityButton.textContent}, link: ${currentCityButton.getAttribute("href")}`
             );
             element_detectedCity = currentCityButton;
-            changeNamePlaceholder2(currentCityButton);
+            updateCityPlaceholders2(currentCityButton);
             cityFound = true;
           }
         });
@@ -67,9 +68,11 @@
           setDefaultCity2();
         }
       };
-      var getCurrentPosition = getCurrentPosition2, setDefaultCity = setDefaultCity2, cityGuess = cityGuess2, saveCity = saveCity2, changeNamePlaceholder = changeNamePlaceholder2, findElementOfCurrentCity = findElementOfCurrentCity2;
+      var getCurrentPosition = getCurrentPosition2, setDefaultCity = setDefaultCity2, cityGuess = cityGuess2, saveCity = saveCity2, updateCityPlaceholders = updateCityPlaceholders2, findElementOfCurrentCity = findElementOfCurrentCity2;
       const defaultCity = "New York";
-      const all_cityButtons = document.querySelectorAll("[section_menu] [location-dropdown_button]");
+      const all_cityButtons = document.querySelectorAll(
+        "[section_menu] [location-dropdown_button], [location-dropdown_list] [location-dropdown_button]"
+      );
       const button_yes = document.querySelector('[is-your-city-new-york="yes"]');
       const button_no = document.querySelector('[is-your-city-new-york="no"]');
       const button_ok = document.querySelector('[is-your-city-new-york="ok"]');
@@ -154,7 +157,7 @@
       all_cityButtons.forEach((cityButton) => {
         cityButton.addEventListener("click", function() {
           saveCity2(cityButton);
-          changeNamePlaceholder2(cityButton);
+          updateCityPlaceholders2(cityButton);
           elements_cityDropdown.forEach((element) => {
             element.classList.remove("opacity-0");
           });

@@ -4,7 +4,9 @@ export const cityDetector_func = () => {
 
   if (elements_cityDropdown.length) {
     const defaultCity = 'New York';
-    const all_cityButtons = document.querySelectorAll('[section_menu] [location-dropdown_button]');
+    const all_cityButtons = document.querySelectorAll(
+      '[section_menu] [location-dropdown_button], [location-dropdown_list] [location-dropdown_button]'
+    );
     const button_yes = document.querySelector('[is-your-city-new-york="yes"]');
     const button_no = document.querySelector('[is-your-city-new-york="no"]');
     const button_ok = document.querySelector('[is-your-city-new-york="ok"]');
@@ -121,11 +123,12 @@ export const cityDetector_func = () => {
       console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
 
       localStorage.setItem('savedCity', currentCity);
+      updateCityPlaceholders(city);
       el_cityPopup.classList.add('hide');
       window.location.href = currentCityLink;
     }
 
-    function changeNamePlaceholder(city) {
+    function updateCityPlaceholders(city) {
       const cityName = city.getAttribute('location-dropdown_button');
       const allCityPlaceholders = document.querySelectorAll('[city-dropdown-name-placeholder]');
       allCityPlaceholders.forEach((placeholder) => {
@@ -149,7 +152,7 @@ export const cityDetector_func = () => {
             `Found city button: ${currentCityButton.textContent}, link: ${currentCityButton.getAttribute('href')}`
           );
           element_detectedCity = currentCityButton;
-          changeNamePlaceholder(currentCityButton);
+          updateCityPlaceholders(currentCityButton);
           cityFound = true;
         }
       });
@@ -173,7 +176,7 @@ export const cityDetector_func = () => {
     all_cityButtons.forEach((cityButton) => {
       cityButton.addEventListener('click', function () {
         saveCity(cityButton);
-        changeNamePlaceholder(cityButton);
+        updateCityPlaceholders(cityButton);
         elements_cityDropdown.forEach((element) => {
           element.classList.remove('opacity-0');
         });
