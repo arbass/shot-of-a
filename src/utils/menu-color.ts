@@ -2,8 +2,6 @@ export const menuColor_func = () => {
   const menuTrigger = document.querySelector('.menu-standart-trigger');
 
   if (menuTrigger) {
-    console.log('test +');
-
     function whereAreWeScroll() {
       const triggerRect = menuTrigger.getBoundingClientRect();
 
