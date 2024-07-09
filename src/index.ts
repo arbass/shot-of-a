@@ -5,6 +5,7 @@ import { expSliderLinkCreator_func } from '$utils/exp-slider-link-creator';
 import { expVideoOnHover_func } from '$utils/exp-video-on-hover';
 import { catalogItemExp_func } from '$utils/exp-video-on-hover-catalog-page';
 import { formSelectors_func } from '$utils/form-selectors';
+import { menuSelectorMobile_func } from '$utils/main-page-city-selector-mobile';
 import { menuColor_func } from '$utils/menu-color';
 import { coloredSlider_func } from '$utils/sliders-colors';
 
@@ -18,5 +19,6 @@ window.Webflow.push(() => {
   expVideoOnHover_func();
   catalogItemExp_func();
   menuColor_func();
+  menuSelectorMobile_func();
   expSelector_func();
 });

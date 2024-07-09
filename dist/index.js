@@ -507,6 +507,38 @@
   };
   formSelectors_func();
 
+  // src/utils/main-page-city-selector-mobile.ts
+  var menuSelectorMobile_func = () => {
+    const menuTrigger = document.querySelector(".menu-standart-trigger-city");
+    if (menuTrigger) {
+      let whereAreWeScroll2 = function() {
+        const triggerRect = menuTrigger.getBoundingClientRect();
+        if (triggerRect.bottom < 0) {
+          const elementsWithToggleClass = document.querySelectorAll("[toggle-class-here-selector]");
+          elementsWithToggleClass.forEach((element) => {
+            const toggleClass = element.getAttribute("toggle-class-here-selector");
+            if (toggleClass) {
+              element.classList.remove(toggleClass);
+            }
+          });
+        } else {
+          const elementsWithToggleClass = document.querySelectorAll("[toggle-class-here-selector]");
+          elementsWithToggleClass.forEach((element) => {
+            const toggleClass = element.getAttribute("toggle-class-here-selector");
+            if (toggleClass) {
+              element.classList.add(toggleClass);
+            }
+          });
+        }
+      }, handleScroll2 = function() {
+        whereAreWeScroll2();
+      };
+      var whereAreWeScroll = whereAreWeScroll2, handleScroll = handleScroll2;
+      whereAreWeScroll2();
+      window.addEventListener("scroll", handleScroll2);
+    }
+  };
+
   // src/utils/menu-color.ts
   var menuColor_func = () => {
     const menuTrigger = document.querySelector(".menu-standart-trigger");
@@ -566,6 +598,7 @@
     expVideoOnHover_func();
     catalogItemExp_func();
     menuColor_func();
+    menuSelectorMobile_func();
     expSelector_func();
   });
 })();
