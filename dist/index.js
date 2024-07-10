@@ -474,6 +474,19 @@
     }
   };
 
+  // src/utils/faq-hider.ts
+  var faqHider_func = () => {
+    const faqHider_el = document.querySelectorAll(".section_faq");
+    if (faqHider_el.length) {
+      faqHider_el.forEach((faq_section) => {
+        const allFaqItems = faq_section.querySelectorAll(".cl-i_faq");
+        if (!allFaqItems.length) {
+          faq_section.classList.add("hide");
+        }
+      });
+    }
+  };
+
   // src/utils/form-selectors.ts
   var formSelectors_func = () => {
     const formSelectors_el = document.querySelectorAll('[form-custom-dropdwn="component"]');
@@ -600,6 +613,7 @@
     menuColor_func();
     menuSelectorMobile_func();
     expSelector_func();
+    faqHider_func();
   });
 })();
 //# sourceMappingURL=index.js.map
