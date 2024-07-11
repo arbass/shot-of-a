@@ -1,3 +1,4 @@
+import { bookLinks_func } from '$utils/book-now-links';
 import { cityDetector_func } from '$utils/city-detector';
 import { expParams_func } from '$utils/exp-catalog-params';
 import { expSelector_func } from '$utils/exp-selector';
@@ -23,4 +24,5 @@ window.Webflow.push(() => {
   menuSelectorMobile_func();
   expSelector_func();
   faqHider_func();
+  bookLinks_func();
 });

@@ -3,6 +3,29 @@
   // bin/live-reload.js
   new EventSource(`${"http://localhost:3000"}/esbuild`).addEventListener("change", () => location.reload());
 
+  // src/utils/book-now-links.ts
+  var bookLinks_func = () => {
+    const bookLinks_el = document.querySelectorAll("[book-now-button]");
+    if (bookLinks_el.length) {
+      bookLinks_el.forEach((elButton) => {
+        const linkFromAtribute = elButton.getAttribute("book-now-button");
+        if (linkFromAtribute != "") {
+          const currentCity = document.querySelector("[catalog-page-city]").getAttribute("catalog-page-city");
+          const atribute_linksItemsList_readyFalse = linkFromAtribute.split(";").filter((item) => item.trim() !== "");
+          const atribute_linksItemsList_readyTrue = [];
+          atribute_linksItemsList_readyFalse.forEach((el) => {
+            const part_first = el.split("@")[0];
+            const part_second = el.split("@")[1];
+            if (part_first === currentCity) {
+              elButton.setAttribute("href", part_second);
+              elButton.classList.remove("hide");
+            }
+          });
+        }
+      });
+    }
+  };
+
   // src/utils/city-detector.ts
   var cityDetector_func = () => {
     const elements_cityDropdown = document.querySelectorAll("[location-dropdown]");
@@ -614,6 +637,7 @@
     menuSelectorMobile_func();
     expSelector_func();
     faqHider_func();
+    bookLinks_func();
   });
 })();
 //# sourceMappingURL=index.js.map
