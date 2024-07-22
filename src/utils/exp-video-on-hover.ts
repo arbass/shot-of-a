@@ -1,5 +1,6 @@
 export const expVideoOnHover_func = () => {
   const expVideoOnHover_el = document.querySelectorAll('[video-on-hover]');
+  console.log('purge');
 
   if (expVideoOnHover_el.length) {
     expVideoOnHover_el.forEach((hover_el) => {
