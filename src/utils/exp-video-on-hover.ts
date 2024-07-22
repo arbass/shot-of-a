@@ -23,6 +23,11 @@ export const expVideoOnHover_func = () => {
 
           const currentVideo = hover_el.querySelector('video');
           if (currentVideo) {
+            const handleVideoEnded = () => {
+              currentVideo.currentTime = 0;
+              currentVideo.play();
+            };
+
             if (!videoLoaded) {
               const handleCanPlayThrough = () => {
                 videoLoaded = true;
@@ -35,6 +40,7 @@ export const expVideoOnHover_func = () => {
                     console.error('Error playing video:', error);
                   });
                 currentVideo.removeEventListener('canplaythrough', handleCanPlayThrough);
+                currentVideo.addEventListener('ended', handleVideoEnded); // Add event listener for loop
               };
 
               currentVideo.addEventListener('canplaythrough', handleCanPlayThrough);
@@ -48,6 +54,7 @@ export const expVideoOnHover_func = () => {
                 .catch((error) => {
                   console.error('Error playing video:', error);
                 });
+              currentVideo.addEventListener('ended', handleVideoEnded); // Add event listener for loop
             }
           }
         }
