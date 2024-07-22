@@ -1,6 +1,8 @@
 export const expVideoOnHover_func = () => {
   const expVideoOnHover_el = document.querySelectorAll('[video-on-hover]');
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   if (expVideoOnHover_el.length) {
     expVideoOnHover_el.forEach((hover_el) => {
       let isPlaying = false;
@@ -23,6 +25,10 @@ export const expVideoOnHover_func = () => {
 
           const currentVideo = hover_el.querySelector('video');
           if (currentVideo) {
+            if (isSafari) {
+              currentVideo.setAttribute('loop', '');
+            }
+
             const handleVideoEnded = () => {
               currentVideo.currentTime = 0;
               currentVideo.play();
