@@ -4,7 +4,10 @@ export const bookLinks_func = () => {
   if (bookLinks_el.length) {
     bookLinks_el.forEach((elButton) => {
       const linkFromAtribute = elButton.getAttribute('book-now-button');
+
       if (linkFromAtribute != '') {
+        console.log(elButton);
+
         const currentCity = document
           .querySelector('[catalog-page-city]')
           .getAttribute('catalog-page-city');
