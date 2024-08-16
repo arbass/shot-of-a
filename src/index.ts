@@ -9,8 +9,8 @@ import { faqHider_func } from '$utils/faq-hider';
 import { formSelectors_func } from '$utils/form-selectors';
 import { menuSelectorMobile_func } from '$utils/main-page-city-selector-mobile';
 import { menuColor_func } from '$utils/menu-color';
+import { selectionAllButton_func } from '$utils/selection-all-button';
 import { coloredSlider_func } from '$utils/sliders-colors';
-
 window.Webflow ||= [];
 window.Webflow.push(() => {
   cityDetector_func();
@@ -25,4 +25,5 @@ window.Webflow.push(() => {
   expSelector_func();
   faqHider_func();
   bookLinks_func();
+  selectionAllButton_func();
 });
