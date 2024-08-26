@@ -30,6 +30,7 @@
   var cityDetector_func = () => {
     const elements_cityDropdown = document.querySelectorAll("[location-dropdown]");
     const elements_navHomeLinks = document.querySelectorAll("[nav-home-link]");
+    const elements_homePageCityLinks = document.querySelectorAll("[home-page-city-links]");
     if (elements_cityDropdown.length) {
       let getCurrentPosition2 = function() {
         return new Promise((resolve, reject) => {
@@ -56,7 +57,7 @@
           placeholder.classList.remove("opacity-0");
         });
       }, saveCity2 = function(city) {
-        const currentCity = city.getAttribute("location-dropdown_button");
+        const currentCity = city.getAttribute("location-dropdown_button") || city.getAttribute("home-page-city-links");
         const currentCityLink = city.getAttribute("href");
         console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
         localStorage.setItem("savedCity", currentCity);
@@ -64,7 +65,7 @@
         el_cityPopup.classList.add("hide");
         window.location.href = currentCityLink;
       }, updateCityPlaceholders2 = function(city) {
-        const cityName = city.getAttribute("location-dropdown_button");
+        const cityName = city.getAttribute("location-dropdown_button") || city.getAttribute("home-page-city-links");
         const allCityPlaceholders = document.querySelectorAll("[city-dropdown-name-placeholder]");
         allCityPlaceholders.forEach((placeholder) => {
           placeholder.textContent = cityName;
@@ -200,6 +201,12 @@
             );
             window.location.href = cityLink;
           }
+        });
+      });
+      elements_homePageCityLinks.forEach((cityLink) => {
+        cityLink.addEventListener("click", function(event) {
+          event.preventDefault();
+          saveCity2(cityLink);
         });
       });
     }

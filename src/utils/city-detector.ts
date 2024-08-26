@@ -1,6 +1,7 @@
 export const cityDetector_func = () => {
   const elements_cityDropdown = document.querySelectorAll('[location-dropdown]');
   const elements_navHomeLinks = document.querySelectorAll('[nav-home-link]');
+  const elements_homePageCityLinks = document.querySelectorAll('[home-page-city-links]'); // Добавили обработку для ссылок с атрибутом home-page-city-links
 
   if (elements_cityDropdown.length) {
     const defaultCity = 'New York';
@@ -117,7 +118,8 @@ export const cityDetector_func = () => {
     }
 
     function saveCity(city) {
-      const currentCity = city.getAttribute('location-dropdown_button');
+      const currentCity =
+        city.getAttribute('location-dropdown_button') || city.getAttribute('home-page-city-links');
       const currentCityLink = city.getAttribute('href');
 
       console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
@@ -129,7 +131,8 @@ export const cityDetector_func = () => {
     }
 
     function updateCityPlaceholders(city) {
-      const cityName = city.getAttribute('location-dropdown_button');
+      const cityName =
+        city.getAttribute('location-dropdown_button') || city.getAttribute('home-page-city-links');
       const allCityPlaceholders = document.querySelectorAll('[city-dropdown-name-placeholder]');
       allCityPlaceholders.forEach((placeholder) => {
         placeholder.textContent = cityName;
@@ -197,6 +200,14 @@ export const cityDetector_func = () => {
           );
           window.location.href = cityLink;
         }
+      });
+    });
+
+    // Добавляем обработчики для элементов с атрибутом home-page-city-links
+    elements_homePageCityLinks.forEach((cityLink) => {
+      cityLink.addEventListener('click', function (event) {
+        event.preventDefault(); // Останавливаем стандартное поведение ссылки
+        saveCity(cityLink); // Сохраняем город
       });
     });
   }
