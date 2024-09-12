@@ -210,6 +210,26 @@
         });
       });
     }
+    const bodyElement = document.querySelector("body");
+    const pageType = bodyElement.getAttribute("parallel-page-type");
+    if (pageType === "event" || pageType === "individual") {
+      const parentElement = document.querySelector(`[parallel-page-links-parent="${pageType}"]`);
+      const linksWithExpCity = parentElement.querySelectorAll("[exp-city]");
+      const dropdownLinks = document.querySelectorAll(
+        "[parallel-location-dropdown_list] [location-dropdown_button]"
+      );
+      linksWithExpCity.forEach((expLink) => {
+        const expCity = expLink.getAttribute("exp-city");
+        dropdownLinks.forEach((dropdownLink) => {
+          const locationCity = dropdownLink.getAttribute("location-dropdown_button");
+          if (expCity === locationCity) {
+            const newHref = expLink.getAttribute("href");
+            console.log(`Matching city: ${expCity}. Updating link to: ${newHref}`);
+            dropdownLink.setAttribute("href", newHref);
+          }
+        });
+      });
+    }
   };
 
   // src/utils/exp-catalog-params.ts
