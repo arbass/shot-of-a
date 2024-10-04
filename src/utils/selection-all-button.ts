@@ -3,7 +3,6 @@ export const selectionAllButton_func = () => {
   const currentSelectorButton = document.querySelector(
     '.dropdown-placeholder.is-exp-filter.is-new'
   );
-  console.log(currentSelectorButton.textContent);
 
   if (selectionAllButton_el) {
     if (

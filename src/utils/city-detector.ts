@@ -122,8 +122,6 @@ export const cityDetector_func = () => {
         city.getAttribute('location-dropdown_button') || city.getAttribute('home-page-city-links');
       const currentCityLink = city.getAttribute('href');
 
-      console.log(`Saving city: ${currentCity}, link: ${currentCityLink}`);
-
       localStorage.setItem('savedCity', currentCity);
       updateCityPlaceholders(city);
       el_cityPopup.classList.add('hide');
@@ -151,23 +149,18 @@ export const cityDetector_func = () => {
           textNameOfCity.toUpperCase()
         ) {
           const currentCityButton = cityButton;
-          console.log(
-            `Found city button: ${currentCityButton.textContent}, link: ${currentCityButton.getAttribute('href')}`
-          );
           element_detectedCity = currentCityButton;
           updateCityPlaceholders(currentCityButton);
           cityFound = true;
         }
       });
       if (!cityFound) {
-        console.log('City not found, setting to default city');
         setDefaultCity();
       }
     }
 
     if (localStorage.getItem('savedCity')) {
       const savedCity = localStorage.getItem('savedCity');
-      console.log(`Loaded saved city: ${savedCity}`);
       findElementOfCurrentCity(savedCity);
       elements_cityDropdown.forEach((element) => {
         element.classList.remove('opacity-0');
@@ -190,14 +183,10 @@ export const cityDetector_func = () => {
       navHomeLink.addEventListener('click', function () {
         if (element_detectedCity) {
           const cityLink = element_detectedCity.getAttribute('href');
-          console.log(`Navigating to city: ${element_detectedCity.textContent}, link: ${cityLink}`);
           window.location.href = cityLink;
         } else {
           setDefaultCity();
           const cityLink = element_detectedCity.getAttribute('href');
-          console.log(
-            `Navigating to default city: ${element_detectedCity.textContent}, link: ${cityLink}`
-          );
           window.location.href = cityLink;
         }
       });
@@ -228,7 +217,6 @@ export const cityDetector_func = () => {
         const locationCity = dropdownLink.getAttribute('location-dropdown_button');
         if (expCity === locationCity) {
           const newHref = expLink.getAttribute('href');
-          console.log(`Matching city: ${expCity}. Updating link to: ${newHref}`);
           dropdownLink.setAttribute('href', newHref);
         }
       });

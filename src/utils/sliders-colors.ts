@@ -9,7 +9,6 @@ export const coloredSlider_func = () => {
 
       allSwiperSlides.forEach((slide, index) => {
         const colorIndex = index % colors.length;
-        // console.log(`Applying color ${colors[colorIndex]} to slide ${index}`);
         slide.style.backgroundColor = colors[colorIndex];
       });
     });
