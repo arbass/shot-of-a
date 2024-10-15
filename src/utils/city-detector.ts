@@ -18,66 +18,44 @@ export const cityDetector_func = () => {
     const el_locationDropdownList = document.querySelector('[location-dropdown_list]');
     let element_detectedCity;
 
+    function getCityFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('testCity');
+    }
+
     async function func_locationApi() {
-      if (!navigator.geolocation) {
-        setDefaultCity();
-        return;
-      }
+      const cityFromUrl = getCityFromUrl();
+      let city;
 
-      try {
-        const position = await getCurrentPosition();
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        await codeLatLng(lat, lng);
-      } catch (error) {
-        setDefaultCity();
-      }
-    }
+      if (cityFromUrl) {
+        city = cityFromUrl;
+        console.log(city);
+      } else {
+        try {
+          const response = await fetch('https://ipinfo.io/json?token=f312629f0e4ed4');
+          const data = await response.json();
+          console.log(data);
 
-    function getCurrentPosition() {
-      return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
-    }
-
-    async function codeLatLng(lat, lng) {
-      const geocoder = new google.maps.Geocoder();
-      const latlng = new google.maps.LatLng(lat, lng);
-
-      geocoder.geocode({ latLng: latlng }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
-            let city;
-            for (let i = 0; i < results[0].address_components.length; i++) {
-              for (let b = 0; b < results[0].address_components[i].types.length; b++) {
-                if (results[0].address_components[i].types[b] == 'locality') {
-                  city = results[0].address_components[i];
-                  break;
-                }
+          const { city } = data;
+          if (city) {
+            let cityMatched = false;
+            all_cityButtons.forEach((cityButton) => {
+              if (cityButton.textContent.toUpperCase() === city.toUpperCase()) {
+                element_detectedCity = cityButton;
+                cityMatched = true;
+                cityGuess();
               }
-            }
-            if (city) {
-              let cityMatched = false;
-              all_cityButtons.forEach((cityButton) => {
-                if (cityButton.textContent.toUpperCase() === city.long_name.toUpperCase()) {
-                  element_detectedCity = cityButton;
-                  cityMatched = true;
-                  cityGuess();
-                }
-              });
-              if (!cityMatched) {
-                setDefaultCity();
-              }
-            } else {
+            });
+            if (!cityMatched) {
               setDefaultCity();
             }
           } else {
             setDefaultCity();
           }
-        } else {
+        } catch (error) {
           setDefaultCity();
         }
-      });
+      }
     }
 
     function setDefaultCity() {
