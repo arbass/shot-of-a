@@ -1,5 +1,6 @@
 import { bookLinks_func } from '$utils/book-now-links';
 import { cityDetector_func } from '$utils/city-detector';
+import { countryInput_func } from '$utils/country-input';
 import { expParams_func } from '$utils/exp-catalog-params';
 import { expSelector_func } from '$utils/exp-selector';
 import { expSliderLinkCreator_func } from '$utils/exp-slider-link-creator';
@@ -26,4 +27,5 @@ window.Webflow.push(() => {
   faqHider_func();
   bookLinks_func();
   selectionAllButton_func();
+  countryInput_func();
 });
