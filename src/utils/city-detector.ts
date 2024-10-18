@@ -29,12 +29,10 @@ export const cityDetector_func = () => {
 
       if (cityFromUrl) {
         city = cityFromUrl;
-        console.log(city);
       } else {
         try {
           const response = await fetch('https://ipinfo.io/json?token=f312629f0e4ed4');
           const data = await response.json();
-          console.log(data);
 
           const { city } = data;
           if (city) {

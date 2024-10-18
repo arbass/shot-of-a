@@ -14,7 +14,7 @@ export const countryInput_func = () => {
 
   // Добавляем слушатель на изменение значения для каждого инпута
   countryInputs.forEach((countryElement) => {
-    countryElement.addEventListener('change', () => {
+    countryElement.addEventListener('input', () => {
       // Получаем связанный state элемент
       const stateInput = document.querySelector(`[data-state="${countryElement.dataset.country}"]`);
 
