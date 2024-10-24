@@ -21,11 +21,14 @@ export const expSelector_func = () => {
 
             //
             el_allExpButtons.addEventListener('click', function () {
+              const detectedCity = localStorage.getItem('savedCity');
               const allIncludedLinks = el_allExpButtons.querySelectorAll('a');
-              console.log('click from exp button');
 
               allIncludedLinks.forEach((link) => {
-                window.location.href = link.href;
+                const currentLinkCity = link.getAttribute('exp-city-dropdown-city-slug');
+                if (currentLinkCity === detectedCity) {
+                  window.location.href = link.href;
+                }
               });
             });
           });
