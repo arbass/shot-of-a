@@ -21,16 +21,14 @@ export const expSelector_func = () => {
 
             //
             el_allExpButtons.addEventListener('click', function () {
-              if (localStorage.getItem('savedCity')) {
-                const detectedCity = localStorage.getItem('savedCity');
-                const allIncludedLinks = el_allExpButtons.querySelectorAll('a');
-                allIncludedLinks.forEach((link) => {
-                  const currentLinkCity = link.getAttribute('exp-city-dropdown-city-slug');
-                  if (currentLinkCity === detectedCity) {
-                    window.location.href = link.href;
-                  }
-                });
-              }
+              const detectedCity = localStorage.getItem('savedCity');
+              const allIncludedLinks = el_allExpButtons.querySelectorAll('a');
+              allIncludedLinks.forEach((link) => {
+                const currentLinkCity = link.getAttribute('exp-city-dropdown-city-slug');
+                if (currentLinkCity === detectedCity) {
+                  window.location.href = link.href;
+                }
+              });
             });
           });
         });
