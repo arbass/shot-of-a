@@ -30,8 +30,6 @@ export const expSelector_func = () => {
                     window.location.href = link.href;
                   }
                 });
-              } else {
-                alert('Please select the required city from the website menu.');
               }
             });
           });
