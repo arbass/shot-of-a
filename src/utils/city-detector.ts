@@ -62,6 +62,7 @@ export const cityDetector_func = () => {
             });
             if (!cityMatched) {
               setDefaultCity();
+              saveCity(respCity);
             }
           } else {
             setDefaultCity();
