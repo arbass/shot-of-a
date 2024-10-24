@@ -29,13 +29,29 @@ export const cityDetector_func = () => {
 
       if (cityFromUrl) {
         city = cityFromUrl;
+
+        if (city) {
+          let cityMatched = false;
+          all_cityButtons.forEach((cityButton) => {
+            if (cityButton.textContent.toUpperCase() === city.toUpperCase()) {
+              element_detectedCity = cityButton;
+              cityMatched = true;
+              cityGuess();
+            }
+          });
+          if (!cityMatched) {
+            setDefaultCity();
+          }
+        } else {
+          setDefaultCity();
+        }
       } else {
         try {
           const response = await fetch('https://ipinfo.io/json?token=f312629f0e4ed4');
           const data = await response.json();
 
-          const { city } = data;
-          if (city) {
+          const { city: respCity } = data;
+          if (respCity) {
             let cityMatched = false;
             all_cityButtons.forEach((cityButton) => {
               if (cityButton.textContent.toUpperCase() === city.toUpperCase()) {
